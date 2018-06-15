@@ -1,0 +1,12 @@
+.bigBox {
+    width: 850px;
+    height: 850px;
+    display: inline-block;
+}
+
+.smallBox {
+    width: 200px;
+    height: 200px;
+    outline: 1px solid;
+    display: inline-block;
+}
