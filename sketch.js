@@ -117,9 +117,66 @@ for (var i = 0; i < box.length; i++) {
   let a = numArr.pop()
   box[i].childNodes[0].src = 'cb_cards/' + a + '.png';
   box[i].childNodes[0].className = a;
-  box[i].addEventListener('click', function (){
-    this.childNodes[0].style.visibility = "visible";
-})
+  box[i].addEventListener('click', function (event) {checkTurn(event.target)});
 };
 
+// if (tempArr[0]!==tempArr[1]){
+//   box 
+// }
 
+var pairsFound = 0;
+var cardsPicked  = {};
+function checkTurn(cardClicked) {
+  var cardClickedId = cardClicked.id;
+  var tempArr = Object.keys(cardsPicked);
+
+    if(cardClicked.childNodes[0].style.visibility == "visible") {
+      return;
+    } else if (tempArr.length == 0) {
+      cardClicked.childNodes[0].style.visibility = "visible";//flip card
+      cardsPicked.firstName = cardClicked.childNodes[0].className;
+      cardsPicked.firstId = cardClickedId;
+    } else if (tempArr.length == 2) {
+      cardClicked.childNodes[0].style.visibility = "visible";
+      cardsPicked.secondName = cardClicked.childNodes[0].className;
+      cardsPicked.secondId = cardClickedId;
+      setTimeout(function () {checkWinRound()}, 1000);
+      
+
+      //flip card and check for win and proceed accordingly
+    }
+
+function checkWinRound(){
+  if (cardsPicked.firstName != cardsPicked.secondName){
+    document.getElementById(cardsPicked.firstId).childNodes[0].style.visibility = "hidden";
+    document.getElementById(cardsPicked.secondId).childNodes[0].style.visibility = "hidden";
+    cardsPicked = {};
+  } else {
+    pairsFound++;
+    if (pairsFound == 8){
+      alert("YOU WIN!!!")
+    }
+    cardsPicked = {};
+  }
+}
+    // cardClicked.childNodes[0].style.visibility = "visible";
+    // console.log(cardClicked)
+    // tempArr.push(cardClicked.childNodes[0].className)
+    // var imgHide = document.getElementsByTagName("img");
+    //   if (tempArr[0]!==tempArr[1]){
+    //     for (var i = 0; i < imgHide.length; i++) {
+    //       imgHide[i].style.visibility = "hidden";
+    //     };
+    //   };
+      // if (tempArr.length > 1){
+      //   tempArr = []
+      // }
+    };
+
+// tempArr.push(this.childNodes[0].className)
+// if (this.childNodes[0].class
+
+// if (this and push)
+
+//   var tempArr = []
+//   tempArr.push(this.childNodes[0])
