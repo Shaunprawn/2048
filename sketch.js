@@ -4,7 +4,7 @@
 // 	[0,0,0,0],
 // 	[0,0,0,0],
 // 	[0,0,0,0],
-// 	[0,0,0,0],
+// 	[0,0,0,0]
 //   ];
 //   console.table(grid);
 // 	addNumber();
@@ -12,82 +12,114 @@
 // 	console.table(grid);
 // }
 
-var a1 = document.getElementById('10')
-var num = "10";
-num = num.split('');
-var numArr = []
-for (var i=0; i<num.length; i++){
-  var num1 = parseInt(num[i])
-  numArr.push(num1)
-}
-console.log(numArr)
+//need to add in j logic early
+//grid movement must happen before k<j
+
+
+// for (var i = 0; i < 4; i++) {   //movement along the x axis
+//   for (var j = 1; j < 4; j++) {   //movement along the y axis
+//     var boxId = j.toString()+i.toString(); 
+//     var box = document.getElementById(boxId);
+
+
+//       for (var k = 0; k < j; k++) {
+//         var refBox = k.toString()+i.toString();
+//         var ref = document.getElementById(refBox);
+
+        // if (ref.childNodes.length<1 && boxId.childNodes.length == 1) {
+        //   var cln = boxId.lastChild.cloneNode(true); //clone
+        //   ref.appendChild(cln);
+        //   boxId.removeChild(boxId.childNodes[0]);
+        //   console.log(cln);
+        // } else {
+        //   return;
+        // }
 
 
 
-//a1.innerText = 'first';
-var num2 = numArr[0]-1;
-numArr.shift();
-numArr.unshift(num2);
-numArr = numArr.join("");
-// numArr = numArr.toString();
+//         boxId = boxId.split('');
+//         console.log("boxID "+boxId)
+//         var boxArr = [];
+//           for (var i=0; i<boxId.length; i++){   //pushes num into array
+//             var id1 = parseInt(boxId[i]);
+//             boxArr.push(id1);
+//             console.log(boxArr);
+//           }
 
-console.log(typeof(numArr));
+//         for (var l=0; l<boxArr.length; l++){
 
-
-
-function addNumber(){
-	var options = [];
-	for (var i=0 ; i < 4; i++){
-		for (var j=0; j < 4; j++){
-			if (grid[i][j] === 0){
-				options.push({
-					x: i,
-					y: j
-				});
-
-				
-			}
-		}
-	}
-	if (options.length > 0);
-	var spot = random(options);
-	var r = random(1)
-	grid[spot.x][spot.y] = r > 0.5 ? 2 : 4
-}
-
-//function draw() {
-  // background(255);
-  // for(var i=0;i<4;i++){
-  //   for(var j=0; i<4; j++){
-  //     noFill();
-  //     strokeWeight(2);
-  //     stroke(0);
-  //     rect(i * w, j * w, w , w);
-  //     var val = grid [i][j];
-  //     if (grid[i][j] !== 0){
-  //       textAlign(CENTER);
-  //       text(val, i*w+w/2, j*w+w/2);
-  //     }
-
-  //   }
-  // }  
-//}
-
-// function randomNum (){
-//   var rn = Math.random(1)
-//   if (arr == " " || 0) {
-//     // place number in grid = rn > 0.5 ? 2 : 4)
-//     else {
-      
+//         }
+//            // if (.childNodes.length<1) { //if box is empty - execute
+//               //INSERT FUNCTION TO MOVE HERE
 //     }
 //   }
 // }
 
-function randomNum () {
-var chooseB = Math.floor((Math.random() * 15)+1);
-  if (chooseB == " "){
-document.getElementById(chooseB).value = (Math.random(1) > 0.5 ? 2 : 4);
-  } else {
-    randomNum();
+// var num = "10";
+// num = num.split('');         //split string
+// var numArr = []              //create array
+// for (var i=0; i<num.length; i++){   //pushes num into array
+//   var num1 = parseInt(num[i])
+//   numArr.push(num1)
+// }
+
+// var num2 = numArr[0]-1; //reduce first index in array grid by 1
+// numArr.shift();         //take out index[0]
+// numArr.unshift(num2);   //add back new index [0] value
+// numArr = numArr.join(""); //convert array to string
+
+function randomNumGen () {
+  var foo = true;
+
+
+  while (foo) {
+    //create random number 2 or 4
+    var z = Math.random() > 0.9 ? 2 : 4;
+    console.log('random number: ' + z);
+
+
+
+    //random row and column
+    var row = Math.floor(Math.random()*4);
+    var col = Math.floor(Math.random()*4);
+    var ranGrid = [row, col];
+    ranGrid = ranGrid.join("");
+    var ranBox = document.getElementById(ranGrid);
+
+    if (ranBox.childNodes.length<1) {
+      //add random number to random row/column
+      var createPara = document.createElement("p");
+      createPara.innerText = z;
+      ranBox.appendChild(createPara);
+      foo = false;
+    }
   }
 }
+
+function open () {
+
+}
+
+var numArr = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8]
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    };
+};
+
+shuffle(numArr)
+
+var box = document.getElementsByClassName('smallBox');
+
+for (var i = 0; i < box.length; i++) {
+  let a = numArr.pop()
+  box[i].childNodes[0].src = 'cb_cards/' + a + '.png';
+  box[i].childNodes[0].className = a;
+  box[i].addEventListener('click', function (){
+    this.childNodes[0].style.visibility = "visible";
+})
+};
+
+
